@@ -14,7 +14,7 @@ description: Medico_APp
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.3.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -44,6 +44,9 @@ dependencies:
   intl: ^0.16.1
   image_picker: ^0.6.7+7
   pagination_view: ^1.0.3+2
+  location: ^3.0.0
+  http: ^0.12.2
+  google_maps_flutter: ^0.5.17
 
 dependency_overrides:
   analyzer: '0.39.14'

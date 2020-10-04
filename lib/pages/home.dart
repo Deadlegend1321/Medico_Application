@@ -13,8 +13,10 @@ import 'package:medico/services/auth.dart';
 import 'package:medico/services/doctor_use_case.dart';
 import 'package:medico/util/server_model.dart';
 import 'package:provider/provider.dart';
-
+import 'dart:async';
 import 'account.dart';
+import 'package:location/location.dart';
+import '../services/location_helper.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -45,6 +47,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
+
+  Future<String> _getCurrentUserLocation() async {
+    final locData = await Location().getLocation();
+    final address = await LocationHelper.getPlaceAddress(locData.latitude, locData.longitude);
+    return address;
+  }
+  Future<String> addr = _getCurrentUserLocation();
   HomeBloc bloc;
   User user;
 
@@ -160,17 +169,22 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                           .withOpacity(0.8),
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Text(
-                                      'Hi ${user.name == null || user.name.isEmpty ? user.phoneNumber : user.name}',
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontSize: 16.0,
-                                        color: Theme.of(context).primaryColor,
+                                  Column(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'Hi ${user.name}',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 16.0,
+                                            color: Theme.of(context).primaryColor,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.end,
+                                        ),
                                       ),
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.end,
-                                    ),
+                                      Text(addr.toString())
+                                    ],
                                   ),
                                 ],
                               ),

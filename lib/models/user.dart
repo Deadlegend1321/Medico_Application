@@ -9,6 +9,14 @@ class User {
   DateTime dateOfBirth;
   String avatar;
 
+  User({
+    this.id,
+    @required this.name,
+    this.phoneNumber,
+    this.gender,
+    this.dateOfBirth,
+    this.avatar});
+
   User.init();
 
   User.basic(this.name, this.phoneNumber);
